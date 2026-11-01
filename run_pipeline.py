@@ -63,7 +63,7 @@ def load_scene(bbox: list[float], date_range: str, max_cloud: float):
     raise SystemExit(f"every candidate scene in {date_range} had too many masked pixels over the AOI")
 
 
-def write_geotiff(path: Path, arr: np.ndarray, transform, crs) -> None:
+def write_geotiff(path: Path, arr: np.ndarray, transform, crs, description: str) -> None:
     profile = {
         "driver": "GTiff",
         "height": arr.shape[0],
@@ -77,6 +77,7 @@ def write_geotiff(path: Path, arr: np.ndarray, transform, crs) -> None:
     }
     with rasterio.open(path, "w", **profile) as dst:
         dst.write(arr.astype("float32"), 1)
+        dst.set_band_description(1, description)
 
 
 def main() -> None:
@@ -117,9 +118,9 @@ def main() -> None:
     }
     summary["aoi"] = {"file": args.aoi, "bbox_wgs84": bbox, "crs": str(crs), "shape": list(ndvi_before.shape)}
 
-    write_geotiff(out / "ndvi_before.tif", ndvi_before, transform, crs)
-    write_geotiff(out / "ndvi_after.tif", ndvi_after, transform, crs)
-    write_geotiff(out / "ndvi_change.tif", diff, transform, crs)
+    write_geotiff(out / "ndvi_before.tif", ndvi_before, transform, crs, f"NDVI {s_before.date}")
+    write_geotiff(out / "ndvi_after.tif", ndvi_after, transform, crs, f"NDVI {s_after.date}")
+    write_geotiff(out / "ndvi_change.tif", diff, transform, crs, "NDVI difference, after minus before")
     plot_change_maps(
         ndvi_before, ndvi_after, diff, transform, crs, aoi, (s_before.date, s_after.date), out / "ndvi_maps.png"
     )

@@ -45,6 +45,19 @@ monthly composite rather than one scene per year.
 
 Full numbers are in `outputs/summary.json`.
 
+### QGIS map
+
+The GeoTIFFs open directly in QGIS. `qgis/make_map.py` builds a project
+(`qgis/ndvi_change.qgz`) with styled layers for the two NDVI rasters and
+the difference, plus a print layout with legend and scale bar, and exports
+it with PyQGIS:
+
+```bash
+"C:\Program Files\QGIS 3.44.15\bin\python-qgis-ltr.bat" qgis/make_map.py
+```
+
+![QGIS layout of the NDVI change map](outputs/qgis_map.png)
+
 ## Method
 
 1. **Search.** Query the public [Earth Search](https://earth-search.aws.element84.com/v1)
@@ -106,12 +119,14 @@ src/s2ndvi/raster.py     windowed COG reads, SCL cloud mask, NDVI
 src/s2ndvi/change.py     difference raster and area statistics
 src/s2ndvi/plots.py      figures
 aoi/aleppo_fields.geojson  default area of interest
+qgis/make_map.py         PyQGIS script: styled project and exported print layout
+qgis/ndvi_change.qgz     QGIS project (expects the GeoTIFFs in outputs/)
 tests/test_ndvi.py       unit tests for the maths and the scaling rule
 outputs/                 figures and summary.json (GeoTIFFs are ignored by git)
 ```
 
 Stack: Python 3.14, rasterio, pystac-client, GeoPandas, Shapely, pyproj,
-NumPy, Matplotlib.
+NumPy, Matplotlib, QGIS 3.44 (PyQGIS) for the map layout.
 
 ## Limitations and next steps
 
