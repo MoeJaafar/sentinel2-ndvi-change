@@ -1,0 +1,42 @@
+{
+  "threshold": 0.15,
+  "pixels_total": 832614,
+  "pixels_valid": 832614,
+  "valid_fraction": 1.0,
+  "ndvi_mean_before": 0.2084,
+  "ndvi_mean_after": 0.5552,
+  "ndvi_diff_mean": 0.3469,
+  "area_valid_ha": 8326.1,
+  "area_gain_ha": 6259.2,
+  "area_loss_ha": 87.7,
+  "area_stable_ha": 1979.2,
+  "share_gain": 0.7518,
+  "share_loss": 0.0105,
+  "share_stable": 0.2377,
+  "before": {
+    "scene": "S2A_37SCA_20250421_1_L2A",
+    "date": "2025-04-21",
+    "cloud_cover": 0.201017,
+    "valid_fraction": 1.0
+  },
+  "after": {
+    "scene": "S2B_37SCA_20260429_0_L2A",
+    "date": "2026-04-29",
+    "cloud_cover": 0.771906,
+    "valid_fraction": 1.0
+  },
+  "aoi": {
+    "file": "aoi/aleppo_fields.geojson",
+    "bbox_wgs84": [
+      36.9,
+      36.05,
+      37.0,
+      36.13
+    ],
+    "crs": "EPSG:32637",
+    "shape": [
+      906,
+      919
+    ]
+  }
+}
